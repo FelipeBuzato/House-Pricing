@@ -5,7 +5,7 @@ class ModelCollection:
         pass
 
 
-    def get(self, model_name):
+    def get(self, model_name, params=None):
 
         if(model_name == "OLS"):
             return LinearRegression()
