@@ -1,0 +1,41 @@
+// Add special columns here and their preprocess type
+{
+    // ordinal categories where None is considered the worst possible value
+    "ordinal_1":{
+        "BsmtQual": ["None", "Po", "Fa", "TA", "Gd", "Ex"],
+        "BsmtCond": ["None", "Po", "Fa", "TA", "Gd", "Ex"],
+        "BsmtExposure": ["None", "No", "Mn", "Av", "Gd"],
+        "BsmtFinType1": ["None", "Unf", "LwQ", "Rec", "BLQ", "ALQ", "GLQ"],
+        "BsmtFinType2": ["None", "Unf", "LwQ", "Rec", "BLQ", "ALQ", "GLQ"],
+        "FireplaceQu": ["None", "Po", "Fa", "TA", "Gd", "Ex"],
+        "GarageFinish": ["None", "Unf", "RFn", "Fin"],
+        "GarageQual": ["None", "Po", "Fa", "TA", "Gd", "Ex"],
+        "GarageCond": ["None", "Po", "Fa", "TA", "Gd", "Ex"],
+        "PoolQC": ["None", "Fa", "TA", "Gd", "Ex"],
+        "Fence": ["None", "MnWw", "GdWo", "MnPrv", "GdPrv"]
+    },
+
+    // ordinal categories where None is simply a missing value and will be replaced by 
+    // most frequent value
+    "ordinal_2":{
+        "LotShape": ["IR3", "IR2", "IR1", "Reg"],
+        "ExterQual": ["Po", "Fa", "TA", "Gd", "Ex"],
+        "ExterCond": ["Po", "Fa", "TA", "Gd", "Ex"],
+        "HeatingQC": ["Po", "Fa", "TA", "Gd", "Ex"],
+        "KitchenQual": ["Po", "Fa", "TA", "Gd", "Ex"],
+        "Functional": ["Sal", "Sev", "Maj2", "Maj1", "Mod", "Min2", "Min1", "Typ"],
+        "PavedDrive": ["N", "P", "Y"]
+    },
+
+    "na_as_none": ["Alley", "MasVnrType", "GarageType", "MiscFeature"],
+
+    "num_as_zero": ["GarageYrBlt"]
+}
+
+
+
+
+// doubts:
+// Garage Year Built is NaN if garage doesn't exist. but then should I fill it with the median
+// year, None or some other value?
+//  
