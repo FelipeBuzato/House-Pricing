@@ -23,7 +23,7 @@ class CrossValidation:
             X,
             y,
             cv=self.kfold,
-            scoring="neg_mean_squared_error",
+            scoring="neg_root_mean_squared_error",
             #n_jobs=-2  # to parallelize calculations across folds
         )
 
@@ -42,7 +42,7 @@ class CrossValidation:
                     self.pipeline,
                     param_grid=param_grid,
                     cv=self.kfold,
-                    scoring="neg_mean_squared_error",
+                    scoring="neg_root_mean_squared_error",
                     refit=False
                     #n_jobs=-2  # to parallelize calculations across folds
         )

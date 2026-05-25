@@ -18,7 +18,7 @@
     // ordinal categories where None is simply a missing value and will be replaced by 
     // most frequent value
     "ordinal_2":{
-        "LotShape": ["IR3", "IR2", "IR1", "Reg"],
+        //"LotShape": ["IR3", "IR2", "IR1", "Reg"],  // we can not assume quality order in lot shape
         "ExterQual": ["Po", "Fa", "TA", "Gd", "Ex"],
         "ExterCond": ["Po", "Fa", "TA", "Gd", "Ex"],
         "HeatingQC": ["Po", "Fa", "TA", "Gd", "Ex"],
@@ -29,13 +29,5 @@
 
     "na_as_none": ["Alley", "MasVnrType", "GarageType", "MiscFeature"],
 
-    "num_as_zero": ["GarageYrBlt"]
+    "na_as_zero": ["GarageYrBlt"]
 }
-
-
-
-
-// doubts:
-// Garage Year Built is NaN if garage doesn't exist. but then should I fill it with the median
-// year, None or some other value?
-//  
