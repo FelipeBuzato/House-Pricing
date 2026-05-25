@@ -6,6 +6,7 @@ import json5
 
 class PreProcessor:
     def __init__(self, df, config_path):
+        self.config_path = config_path
         with open(config_path, 'r') as file:
             self.config = json5.load(file)
         column_groups = self.split_cols(df)

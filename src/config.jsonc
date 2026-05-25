@@ -29,5 +29,7 @@
 
     "na_as_none": ["Alley", "MasVnrType", "GarageType", "MiscFeature"],
 
-    "na_as_zero": ["GarageYrBlt"]
+    "na_as_zero": ["GarageYrBlt"],
+
+    "log_transforms": ["LotArea", "GrLivArea", "1stFlrSF", "LotFrontage"]
 }
