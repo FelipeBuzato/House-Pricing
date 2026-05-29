@@ -11,7 +11,7 @@
         "GarageFinish": ["None", "Unf", "RFn", "Fin"],
         "GarageQual": ["None", "Po", "Fa", "TA", "Gd", "Ex"],
         "GarageCond": ["None", "Po", "Fa", "TA", "Gd", "Ex"],
-        "PoolQC": ["None", "Fa", "TA", "Gd", "Ex"],
+        //"PoolQC": ["None", "Fa", "TA", "Gd", "Ex"],
         "Fence": ["None", "MnWw", "GdWo", "MnPrv", "GdPrv"]
     },
 
@@ -27,9 +27,14 @@
         "PavedDrive": ["N", "P", "Y"]
     },
 
-    "na_as_none": ["Alley", "MasVnrType", "GarageType", "MiscFeature"],
+    "na_as_none": ["MasVnrType", "GarageType"], //droped: "Alley", "MiscFeature"
 
     "na_as_zero": ["GarageYrBlt"],
 
-    "log_transforms": ["LotArea", "GrLivArea", "1stFlrSF", "LotFrontage"]
+    "log_transforms": ["LotArea", "GrLivArea", "1stFlrSF", "LotFrontage"],
+
+    // Features added in transformer
+    "Features_added": ["SqFeet", "Baths", "Porch", "Age_Sold", "Age_Remod"],
+
+    "cols_to_drop": ["Id", "PoolQC", "Alley", "MiscFeature"]
 }

@@ -1,11 +1,7 @@
-from sklearn.pipeline import Pipeline
-from sklearn.compose import ColumnTransformer
-from sklearn.impute import SimpleImputer
-from sklearn.preprocessing import OneHotEncoder, StandardScaler, OrdinalEncoder
 import json5
 
 class PreProcessor:
-    def __init__(self, df, config_path):
+    def __init__(self, config_path, df):
         self.config_path = config_path
         with open(config_path, 'r') as file:
             self.config = json5.load(file)
@@ -26,65 +22,24 @@ class PreProcessor:
         if('SalePrice' in df.columns):
             df = df.drop(columns=['SalePrice'])
 
-        numeric_cols = set(df.select_dtypes(include="number").columns)
+        numeric_cols = set(df.select_dtypes(include="number").columns) | set(self.config["Features_added"])
         categorical_cols = set(df.select_dtypes(include=["object", "category"]).columns)
 
         ordinal_1_cols = set(self.config["ordinal_1"].keys())
         ordinal_2_cols = set(self.config["ordinal_2"].keys())
         na_as_none_cols = set(self.config["na_as_none"])
         na_as_zero_cols = set(self.config["na_as_zero"])
+        cols_to_drop = set(self.config["cols_to_drop"])
         special_cols = (ordinal_1_cols | ordinal_2_cols | na_as_none_cols | na_as_zero_cols)
+
+        if(special_cols.intersection(cols_to_drop)):
+            raise ValueError("Remove all cols_to_drop from special_cols config.")
         
-        numerical_cols = list(numeric_cols - special_cols)
-        categorical_cols = list(categorical_cols - special_cols)
+        numerical_cols = list(numeric_cols - special_cols - cols_to_drop)
+        categorical_cols = list(categorical_cols - special_cols - cols_to_drop)
         ordinal_1_cols = list(ordinal_1_cols)
         ordinal_2_cols = list(ordinal_2_cols)
         na_as_none_cols = list(na_as_none_cols)
         na_as_zero_cols = list(na_as_zero_cols)
 
         return numerical_cols, categorical_cols, ordinal_1_cols, ordinal_2_cols, na_as_none_cols, na_as_zero_cols
-
-    
-    def build(self):
-        numerical_pipeline = Pipeline([
-            ("imputer", SimpleImputer(strategy="median")),
-            ("scaler", StandardScaler())
-        ])
-
-        na_zero_pipeline = Pipeline([
-            ("imputer", SimpleImputer(strategy="constant", fill_value=0)),
-            ("scaler", StandardScaler())
-        ])
-
-        categorical_pipeline = Pipeline([
-            ("imputer", SimpleImputer(strategy="most_frequent")),
-            ("onehot", OneHotEncoder(handle_unknown="ignore"))
-        ])
-
-        na_none_pipeline = Pipeline([
-            ("imputer", SimpleImputer(strategy="constant", fill_value="None")),
-            ("onehot", OneHotEncoder(handle_unknown="ignore"))
-        ])
-
-        ordinal_1_pipeline = Pipeline([
-            ("inputer", SimpleImputer(strategy='constant', fill_value="None")),
-            ("encoder", OrdinalEncoder(categories=self.ordinal_1_categories, handle_unknown="use_encoded_value", unknown_value=-1)),
-            ("scaler", StandardScaler())
-        ])
-
-        ordinal_2_pipeline = Pipeline([
-            ("inputer", SimpleImputer(strategy='most_frequent')),
-            ("encoder", OrdinalEncoder(categories=self.ordinal_2_categories, handle_unknown="use_encoded_value", unknown_value=-1)),
-            ("scaler", StandardScaler())
-        ])
-
-        column_transformer = ColumnTransformer([
-            ("num", numerical_pipeline, self.numerical_cols),
-            ("cat", categorical_pipeline, self.categorical_cols),
-            ("ord_1", ordinal_1_pipeline, self.ordinal_1_cols),
-            ("ord_2", ordinal_2_pipeline, self.ordinal_2_cols),
-            ("na_as_none", na_none_pipeline, self.na_as_none_cols),
-            ("na_as_zero", na_zero_pipeline, self.na_as_zero_cols)
-        ])
-
-        return column_transformer

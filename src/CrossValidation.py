@@ -24,7 +24,7 @@ class CrossValidation:
             y,
             cv=self.kfold,
             scoring="neg_root_mean_squared_error",
-            #n_jobs=-2  # to parallelize calculations across folds
+            n_jobs=-2  # to parallelize calculations across folds
         )
 
         scores_stats = {"mean_rmse": -np.mean(scores), "std_rmse": np.std(scores)}
@@ -43,8 +43,8 @@ class CrossValidation:
                     param_grid=param_grid,
                     cv=self.kfold,
                     scoring="neg_root_mean_squared_error",
-                    refit=True
-                    #n_jobs=-2  # to parallelize calculations across folds
+                    refit=True,
+                    n_jobs=-2  # to parallelize calculations across folds
         )
         search.fit(X, y)
 
