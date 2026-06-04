@@ -4,7 +4,7 @@ from ModelCollection import ModelCollection
 from sklearn.pipeline import Pipeline
 from PreProcessorLinear import PreProcessorLinear
 from PreProcessorTree import PreProcessorTree
-from PreProcessorGB import PreProcessorGB, CategoryCaster
+from PreProcessorGB import PreProcessorGB
 
 class PipelineBuilder:
     def __init__(self, config_path, df):
@@ -12,11 +12,11 @@ class PipelineBuilder:
         self.df = df
 
 
-    def build(self, model_name):
+    def build(self, model_name, params={}):
         transformer = Transformer(self.config_path)
         interactions_transformer = InteractionsTransformer()
         model_collection = ModelCollection()
-        model = model_collection.get(model_name)
+        model = model_collection.get(model_name, params)
 
         # linear models pipeline
         if(model_name in ["OLS", "Ridge", "Lasso"]):

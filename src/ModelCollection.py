@@ -7,21 +7,21 @@ class ModelCollection:
         pass
 
 
-    def get(self, model_name, params=None):
+    def get(self, model_name, params={}):
 
         if(model_name == "OLS"):
-            return LinearRegression()
+            return LinearRegression(**params)
         
         elif(model_name == "Ridge"):
-            return Ridge()
+            return Ridge(**params)
         
         elif(model_name == "Lasso"):
-            return Lasso()
+            return Lasso(**params)
         
         elif(model_name == "Random Forest"):
-            return RandomForestRegressor()
+            return RandomForestRegressor(**params)
         
         elif(model_name == "Gradient Boosting"):
-            return LGBMRegressor()
+            return LGBMRegressor(**params)
         
         raise ValueError(f"Unknown model: {model_name}")
