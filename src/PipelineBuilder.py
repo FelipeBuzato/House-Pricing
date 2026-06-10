@@ -38,8 +38,8 @@ class PipelineBuilder:
             ])
 
         # Gradient Boosting pipeline
-        elif(model_name in ["Gradient Boosting"]):
-            preprocessor = self.get_grad_boost_preprocessor()
+        elif(model_name in ["LightGBM", "XGBoost"]):
+            preprocessor = self.get_grad_boost_preprocessor(model_name)
             pipeline = Pipeline([
                 ("features", transformer),
                 ("preprocess", preprocessor),
@@ -61,6 +61,6 @@ class PipelineBuilder:
         return preprocessor.build()
 
 
-    def get_grad_boost_preprocessor(self):
+    def get_grad_boost_preprocessor(self, model_name):
         preprocessor = PreProcessorGB(self.config_path, self.df)
-        return preprocessor.build()
+        return preprocessor.build(model_name)

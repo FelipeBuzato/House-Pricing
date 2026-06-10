@@ -1,6 +1,7 @@
 from sklearn.linear_model import LinearRegression, Ridge, Lasso
 from sklearn.ensemble import RandomForestRegressor
 from lightgbm import LGBMRegressor
+from xgboost import XGBRegressor
 
 class ModelCollection:
     def __init__(self):
@@ -21,7 +22,10 @@ class ModelCollection:
         elif(model_name == "Random Forest"):
             return RandomForestRegressor(**params)
         
-        elif(model_name == "Gradient Boosting"):
+        elif(model_name == "LightGBM"):
             return LGBMRegressor(**params)
+        
+        elif(model_name == "XGBoost"):
+            return XGBRegressor(**params)
         
         raise ValueError(f"Unknown model: {model_name}")

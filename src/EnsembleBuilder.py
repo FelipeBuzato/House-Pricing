@@ -4,10 +4,11 @@ from sklearn.ensemble import VotingRegressor, StackingRegressor
 
 DEFAULT_PARAMS = {
     "OLS": {},
-    "Ridge": {"alpha": 1.5},
+    "Ridge": {"alpha": 20.0},
     "Lasso": {"alpha": 0.1},
     "Random Forest": {"n_estimators": 1000, "min_samples_leaf": 5, "max_features": 0.3, "max_depth": 20},
-    "Gradient Boosting": {"colsample_bytree": 0.6, "learning_rate": 0.05, "num_leaves": 15, "subsample": 1, "min_child_samples": 5}
+    "LightGBM": {"colsample_bytree": 0.6, "learning_rate": 0.05, "num_leaves": 15, "subsample": 0.8, "min_child_samples": 10},
+    "XGBoost": {"colsample_bytree": 0.6, "learning_rate": 0.1, "subsample": 1, "max_depth": 4}
 }
 
 SHORT_NAMES = {
@@ -15,7 +16,8 @@ SHORT_NAMES = {
     "Ridge": "ridge",
     "Lasso": "lasso",
     "Random Forest": "rf",
-    "Gradient Boosting": "gb"
+    "LightGBM": "lgb",
+    "XGBoost": "xgb"
 }
 
 

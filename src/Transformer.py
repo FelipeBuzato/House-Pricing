@@ -20,9 +20,10 @@ class Transformer(BaseEstimator, TransformerMixin):
         ## Implement feature engineering here        
         X = X.copy()
 
-        X["SqFeet"] = X["1stFlrSF"] + X["2ndFlrSF"]
+        # New features
+        X["SqFeet"] = X["1stFlrSF"] + X["2ndFlrSF"] + X["TotalBsmtSF"]
         X["Baths"] = X["FullBath"] + X["BsmtFullBath"] + (X["HalfBath"] + X["BsmtHalfBath"]) / 2
-        X["Porch"] = X["OpenPorchSF"] + X["EnclosedPorch"] + X["3SsnPorch"] + X["ScreenPorch"]
+        X["Porch"] = X["OpenPorchSF"] + X["EnclosedPorch"] + X["3SsnPorch"] + X["ScreenPorch"] + X["WoodDeckSF"]
         X["Age_Sold"] = X["YrSold"] - X["YearBuilt"]
         X["Age_Remod"] = X["YrSold"] - X["YearRemodAdd"]
 

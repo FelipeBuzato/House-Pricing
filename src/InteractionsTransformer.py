@@ -12,6 +12,11 @@ class InteractionsTransformer(BaseEstimator, TransformerMixin):
         X = X.copy()
 
         # Quality and Condition interaction:
+        #X["QualLivArea"] = X["num__OverallQual"] * X["num__GrLivArea"]
+        #X["QualTotalSF"] = X["num__OverallQual"] * X["num__SqFeet"]
+        #X["QualBsmtSF"] = X["num__OverallQual"] * X["num__TotalBsmtSF"]
+        #X["QualGarage"] = X["num__OverallQual"] * X["num__GarageArea"]
+
         #X["GrLivArea_OverallQual"] = X["num__OverallQual"] * X["num__GrLivArea"]
         #X["OverallQual_OverallCond"] = X["num__OverallQual"] * X["num__OverallCond"]
         #X["ExterQual_ExterCond"] = X["ord_2__ExterQual"] * X["ord_2__ExterCond"]
